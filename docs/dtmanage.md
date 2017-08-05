@@ -42,11 +42,13 @@ When your Hadoop cluster has security enabled with Kerberos, there will be four 
 
 > **Note:** The token lifetime values you enter will not actually set these values in your hadoop configuration, it is only meant to inform the DataTorrent platform of these values.
 
-## Configure Tab
+## configuration
 
-The configuration page can be found by clicking the “Configure” link in the main navigation bar at the top. There are links to various tools to help you configure and troubleshoot your DataTorrent installation. _The configuration page links may differ depending on your cluster setup. The following is a screenshot with a cluster that has simple authentication/authorization enabled._
+Clicking gear icon on top right corner will show a dropdown menu.
+Under **configuration**, there are links to various tools to help you configure and troubleshoot your DataTorrent installation.
+_The configuration links may differ depending on your cluster setup. The following is a screenshot with a cluster that has simple authentication/authorization enabled._
 
-![](images/dtmanage/console-config-screen.png)
+![](images/dtmanage/console-config-system-screen.png)
 
 ### System Configuration
 
