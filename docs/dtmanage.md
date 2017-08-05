@@ -72,7 +72,7 @@ If enabled, your DataTorrent installation will send various pieces of informatio
 
 ### Security Configuration
 
-Use this page to configure the authentication method. You can set the authentication method to be "None" or "Password" as shown in the following screenshot.
+Use this page to configure the authentication method. You can set the authentication method to be "None" or "Password" or "LDAP" as shown in the following screenshot.
 
 ![Security Configuration Page](images/dtmanage/security-screen1.png)
 
