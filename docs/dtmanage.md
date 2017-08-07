@@ -78,6 +78,15 @@ Use this page to configure the authentication method. You can set the authentica
 
 Data Torrent RTS does support other authentication methods but they have to be configured through configuration files as described [here](dtgateway_security/#authentication)
 
+###### Authentication Type: LDAP 
+![](images/dtmanage/security-LDAP.png)
+
+
+After filling out the form above, "LDAP Users" and "LDAP Groups" will show in User Management page.
+
+![](images/dtmanage/user-management-LDAP.png)
+
+
 ### System Alerts
 
 Use this page to manage system alerts.
