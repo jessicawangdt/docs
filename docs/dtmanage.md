@@ -84,8 +84,12 @@ Data Torrent RTS does support other authentication methods but they have to be c
 
 After filling out the form above, "LDAP Users" and "LDAP Groups" will show in User Management page.
 
-![](images/dtmanage/user-management-LDAP.png)
+![](images/dtmanage/user-management-LDAP-1.png)
 
+LDAP Groups - add group mapping:
+![](images/dtmanage/user-management-LDAP-2.png)
+
+![](images/dtmanage/user-management-LDAP-3.png)
 
 ### System Alerts
 
