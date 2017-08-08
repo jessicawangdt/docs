@@ -82,14 +82,28 @@ Data Torrent RTS does support other authentication methods but they have to be c
 ![](images/dtmanage/security-LDAP.png)
 
 
-After filling out the form above, "LDAP Users" and "LDAP Groups" will show in User Management page.
+After filling out the form above and saving it, gateway will be restarted. 
+
+Then, **LDAP Users** and **LDAP Groups** will show in User Management page.
 
 ![](images/dtmanage/user-management-LDAP-1.png)
 
-LDAP Groups - add group mapping:
+Add group mapping from your LDAP system:
 ![](images/dtmanage/user-management-LDAP-2.png)
 
 ![](images/dtmanage/user-management-LDAP-3.png)
+
+log out, then log in as a LDAP user from your LDAP system:
+![](images/dtmanage/user-management-LDAP-4.png)
+
+The login process will automatically create the LDAP user in dtManage system.
+
+![](images/dtmanage/user-management-LDAP-5.png)
+
+
+To verify it, log out, then log in as dtadmin, you'll see the LDAP user under **LDAP Users**:
+![](images/dtmanage/user-management-LDAP-6.png)
+
 
 ### System Alerts
 
