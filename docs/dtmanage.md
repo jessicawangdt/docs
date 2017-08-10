@@ -42,11 +42,12 @@ When your Hadoop cluster has security enabled with Kerberos, there will be four 
 
 > **Note:** The token lifetime values you enter will not actually set these values in your hadoop configuration, it is only meant to inform the DataTorrent platform of these values.
 
-## Configure Tab
+## Configuration
 
-The configuration page can be found by clicking the “Configure” link in the main navigation bar at the top. There are links to various tools to help you configure and troubleshoot your DataTorrent installation. _The configuration page links may differ depending on your cluster setup. The following is a screenshot with a cluster that has simple authentication/authorization enabled._
+The RTS configuration menu is accessed by the cog button on the top-right corner of the Console. Under the **configuration** section, there are links to various tools to help you configure and troubleshoot your DataTorrent installation.
+_The configuration links may differ depending on your security settings. The following is a screenshot of an administrator with Password security mode enabled._
 
-![](images/dtmanage/console-config-screen.png)
+![](images/dtmanage/console-config-system-screen.png)
 
 ### System Configuration
 
@@ -70,11 +71,62 @@ If enabled, your DataTorrent installation will send various pieces of informatio
 
 ### Security Configuration
 
-Use this page to configure the authentication method. You can set the authentication method to be "None" or "Password" as shown in the following screenshot.
+DataTorrent RTS comes with several authentication methods with role-based access control: [Password](#configuring-password-security) and [LDAP](#configuring-ldap-security).
+
+By default, your installation starts with no security enabled, which may be sufficient in a closed network with a limited set of users. It is recommended to use some form of authentication especially for production environments. And if your organization relies on an LDAP server for authentication, RTS can connect directly to it, making it simple to manage a large set of users.
+
+DataTorrent RTS supports security options not listed here. Check out the [Security](dtgateway_security/#authentication) section.
 
 ![Security Configuration Page](images/dtmanage/security-screen1.png)
 
-Data Torrent RTS does support other authentication methods but they have to be configured through configuration files as described [here](dtgateway_security/#authentication)
+#### Configuring Password Security
+
+Password security is simple to set up and is ideal for a small to medium set of users. It comes with role-based access control, so users can be assigned roles, and roles can be assigned granular permissions (see [User Management](#user-management)).
+
+To set up password security, head to the [Security Configuration](#security-configuration) page.
+
+![Security Configuration - Password](images/dtmanage/security-password.png)
+
+Select **Password** from the *Authentication Type* dropdown, and press Save. Allow the Gateway to restart.
+
+When the Gateway has restarted, log in as the default admin user **dtadmin:dtadmin**. Once logged in, head over to the [User Management](#user-management) page to start adding users and assigning them roles.
+
+*Note*: Don't forget to change your **dtadmin** user's password!
+
+#### Configuring LDAP Security
+
+If your organization uses an LDAP server for authentication, the LDAP security option is ideal for giving your existing users access to RTS, with the same role-based access control features from *Password* mode.
+
+There are four variations for configuring LDAP authentication:
+
+  * Identity
+    * Provide the parent DN of your users and **specify the RDN attribute of users**.
+    * Users will authenticate using their RDN attribute value as their username.
+  * Anonymous & User Search Filter
+    * Provide the parent DN of your users and **specify a search filter to identify users**.
+    * Users will authenticate using an appropriate username that matches the parameters defined in the search filter.
+  * Identity and Anonymous Search
+    * Provide the parent DN of your users, **specify the RDN attribute of users, and a search filter**.
+    * Users will authenticate using their RDN attribute value as their username, as well as the parameters defined in the search filter.
+  * Non-Anonymous Search with Group Support
+    * Provide basic DN info for users, DN and password of a user able to perform a non-anonymous search, and optional group support info.
+    * With **group support disabled**, users need to be added in User Management before logging in. Users authenticate with their RDN attribute value as their username.
+    * With **group support enabled**, users do not have to be added in User Management before logging in. Users authenticate with their RDN attribute value as their username. They will be assigned roles mapped to their LDAP group. For example, user *Peter* is part of GroupA (admin) and GroupB (developer); *Peter* will be assigned roles admin and developer upon login.
+
+In all cases, users must be assigned a role before they are able to log in. This applies whether or not group support is enabled, as group to role mappings will assign users roles upon login.
+
+To restrict certain users from logging in (blacklist), simply remove all of their roles.
+
+*Note*: If migrating from *Password* mode, the existing users will be carried over as "local users" and can still login as if in *Password* mode. It is recommended to keep only the **dtadmin** user and delete the rest. This is because local users cannot be added or deleted once *LDAP* mode is activated.
+
+![Security Configuration - LDAP](images/dtmanage/security-LDAP.png)
+
+
+After setting up LDAP in the Security Configuration page, the **LDAP Users** section will appear in the User Management page. If you have group support enabled, the **LDAP Groups** section will also appear.
+
+Existing users (carried over from *Password* mode), will be placed in the **Local Users** sections. Local users cannot be added or deleted in LDAP mode, but their roles and passwords can be modified.
+
+![](images/dtmanage/user-management-LDAP.png)
 
 ### System Alerts
 
