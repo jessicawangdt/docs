@@ -21,11 +21,11 @@ Application Development Tutorials
 Explore Apache Apex application development with one of the tutorial applications below.
 
 
-* **[Top N Words](tutorials/topnwords.md)** is a complete guide to writing your first Apache Apex application using *Java* or *dtAssemble*
+* **[Top N Words](tutorials/topnwords.md)** is a complete guide to writing your first Apache Apex application using *Java*.
 
     [![TopNWords Preview](tutorials/images/topnwords/image26.png)](tutorials/topnwords.md)
 
-* [Sales Dimensions](tutorials/salesdimensions.md) is an introduction to assembling and visualizing sales analytics application with *dtAssemble*
+* [Sales Dimensions](tutorials/salesdimensions.md) is an introduction to assembling and visualizing sales analytics application.
 
     [![Sales Dimensions Preview](tutorials/images/sales_dimensions/preview.png)](tutorials/salesdimensions.md)
 
