@@ -78,19 +78,6 @@ Configurations page.
   ![](images/application_configurations/image07.png)
 
 
-JSON Application Configurations
-===============================
-
-Application Configurations of JSON Applications (dtAssemble) differ from
-Application Configurations of Java Applications in several ways:
-
-  * When creating a Configuration of a JSON Application, the entire
-  JSON Application is copied into the Configuration.
-  * The original JSON Application and its Configurations are decoupled. Any modifications
-  to either would not affect the other. They still rely on the same Package resources
-  (e.g. Operators).
-
-
 Deleting Applications with Existing Application Configurations
 ==============================================================
 
