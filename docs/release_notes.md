@@ -353,6 +353,7 @@ This section lists features and capabilities that have been either removed or pl
 * [SPOI-12167] - AppMaster fails with OutOfMemoryError for apps with metric data
 * [SPOI-12170] - RTS installation fails with NoClassDefFoundError for jackson libraries
 * [SPOI-12178] - ConcurrentModificationException in GroupingManager
+* [SPOI-12181] - Launching from app builder provides invalid notification
 * [SPOI-12186] - Properties for some of the operators are not displayed
 * [SPOI-12192] - Unavailable data sources are shown while adding widgets
 * [SPOI-12193] - Metrics platform does not honour "dt.write.metrics" property
@@ -595,6 +596,7 @@ RTS 3.8.0 is bundled with Apache Apex Core 3.5.0 plus forty feature and fixes th
 * [SPOI-10355]	Update Buttons and Text
 * [SPOI-10357]	Redirect User to Login Page
 * [SPOI-10363]	CheckPermission should not throw exception when auth is not enabled.
+* [SPOI-10416]	dtAssemble does not show connection between operators correctly
 * [SPOI-10421]	Fix oauth login
 * [SPOI-10438]	Hide Top Nav Menu Dropdown When Item is Clicked
 * [SPOI-10463]	Enhance Date/Time Picker for StrAM Events Date Range
@@ -602,6 +604,7 @@ RTS 3.8.0 is bundled with Apache Apex Core 3.5.0 plus forty feature and fixes th
 * [SPOI-10588]	Change Button Label to Close During Launching
 * [SPOI-10862]	Multiple containers are labelled as AppMaster after dynamic partitioning
 * [SPOI-10866]	Time Range Selection Saved Settings Not Loaded Correctly
+* [SPOI-10894]	dtAssemble - Inspector contents not showing up consistently
 * [SPOI-10911]	determine AppMaster container by id that contains _000001 instead of by including 0 operators
 * [SPOI-10963]	appInstance page - fail to show "packagedDashboard" which is included in appPackage that appInstance is launched from
 * [SPOI-10970]	AppHub on gateway does not load in HTTPS
@@ -733,6 +736,12 @@ Debugging features: When trying to troubleshoot or debug a distributed system, t
 * Get thread dump from a container. It is useful to analyze issues such as "stuck operator", and obtain statistics from the running JVM. In production environments users often don't have direct access to the machines, thus making it available through the REST API will help. 
 * Option to auto tail container logs. When viewing a container log via the UI, there is an option to periodically poll for more data (i.e. "tail -f" effect).
 
+dtAssemble
+
+* New validate button so that user can validate DAG without having to save. 
+* Remove auto save function. Save will be initiated by user only.
+* Support custom JSON input for tuple schema creation. This is particularly useful when user needs to add a large number of fields. 
+
 dtDashboard
 
 * New gauge widget
@@ -800,6 +809,7 @@ Change log: https://github.com/apache/apex-malhar/blob/v3.6.0/CHANGELOG.md
 
 #### New Feature
 * [SPOI-7720]	DT Hub shows just one version of an application
+* [SPOI-10182]	dtAssemble - if there is unsaved change, keep launch button enabled which will pop up a dialog box asking save-and-launch when being clicked.
 * [SPOI-8879]	Support custom JSON input for tuple schema creation
 * [SPOI-9877]	Alerts History
 * [SPOI-9876]	Alerts Notification
@@ -816,6 +826,7 @@ Change log: https://github.com/apache/apex-malhar/blob/v3.6.0/CHANGELOG.md
 #### Improvement
 * [SPOI-9785]	send GA events instead of page views for apphub page events
 * [SPOI-10290]	Certification tool - RTS Installer Support for tool
+* [SPOI-10179]	dtAssemble should warn about the unsaved changes when navigating away
 * [SPOI-8989]	Show operator names under Physical -> Containers
 * [SPOI-10163]	dtDebug utilities README should have list of requirements  
 * [SPOI-9881]	appAttempt page - Containers table - "containerLogsUrl" column - change it from showing a hyperlink to "logs" button.
@@ -843,6 +854,8 @@ Change log: https://github.com/apache/apex-malhar/blob/v3.6.0/CHANGELOG.md
 * [SPOI-7965]	Productize certification tool to size RTS
 * [SPOI-6350]	Gauge widget
 * [SPOI-7433]	Update all relevant docs with AppHub
+* [SPOI-9693]	Add Validate button in dtAssemble
+* [SPOI-9688]	Remove autosave from dtAssemble
 * [SPOI-9971]	Verify that alerts can only be sent by mail
 * [SPOI-9364]	dtDebug Logs backend feature
 * [SPOI-9695]	Launch application not using config package name
@@ -860,6 +873,7 @@ Change log: https://github.com/apache/apex-malhar/blob/v3.6.0/CHANGELOG.md
 * [SPOI-10063]	Create new apex core build based on master
 * [SPOI-9859]	Log retrieval tool
 * [SPOI-9043]	Requirements discussion on Batch Support - Definition of Batch, Scheduling of Batch DAG, State of Batch, Replay of Batch and Monitoring of Batch  
+* [SPOI-8990]	DAG Editor - unable to drag a connection stream from a port if having restriction DISABLE_APP_EDIT_STRUCTURE
 * [SPOI-9972]	Document DT Gateway System Alerts
 * [SPOI-9970]	Modify access to allow Admin (and ONLY admin) to set alerts
 * [SPOI-9653]	Plan and implement (1 item in v1)for Gateway Alerts
@@ -1054,10 +1068,12 @@ https://blogs.apache.org/apex/entry/apache_apex_malhar_3_5
 #### Known Issues
 * [SPOI-9232] Dedup with manage state operator marking all impression as duplicate
 * [SPOI-9203]	"check for updates" option says 'no updated versions' and then displays updated packages
+* [SPOI-9183]	Nested operator properties should follow order specified in the ORB on dtAssemble UI
 * [SPOI-8827]	"Check for updates" option keeps loading the page when no updates are available
 
 #### Improvement
 * [SPOI-7343] - Ability to obtain a thread dump from a container
+* [SPOI-8191] - Operator properties should follow order specified in the ORB on dtAssemble UI
 * [SPOI-8352] - Warning message while restarting app should be changed
 * [SPOI-8450] - Dedup ports connected to console should not write to log
 * [SPOI-8722] - Logical DAG, Physical DAG - change "Show/Hide String Locality", "Show/Hide Critical Path" to checkbox.
@@ -1071,6 +1087,7 @@ https://blogs.apache.org/apex/entry/apache_apex_malhar_3_5
 #### Bug Fixes
 * [SPOI-7836] - Trend widget fails after dashboard save/reload with PiDemo app
 * [SPOI-7886] - Duplicate ports show up in the UI for POJO operators
+* [SPOI-8222] - Operator/module names under Operator Library, dtAssemble canvas and right side panel should be same
 * [SPOI-8552] - App Package cache throws uncaught exception when package is not found, resulting in http status 500
 * [SPOI-8721] - Column labeled buffer service size is showing bytes per second
 * [SPOI-9084] - Refresh tokens failing in some scenarios with a login failure message
@@ -1121,10 +1138,16 @@ This release also includes a lot of bug fixes. Please see appendix for full list
 * [SPOI-8295] - "Include Fields" parameter for "POJO Enricher" has misleading description
 * [SPOI-8294] - Operator Class Name for "Delimited Parser" operator should not be "CSV Parser"
 * [SPOI-8293] - File permission property is not working properly for HDFS File Output Operator
+* [SPOI-8291] - Parameters on dtAssemble should be logically ordered
 * [SPOI-8224] - Providing Field Infos value for JDBC POJO Input Operator is too complex
 * [SPOI-8192] - Clicking on edit option for apps throws validation errors in activity panel
+* [SPOI-8158] - Options to modify property values should be closer to the property name on dtAssemble canvas
+* [SPOI-8144] - "Tuple Schemas" link at top right corner of dtAssemble canvas should open in new tab
 * [SPOI-8143] - Tuple Schema page not available directly from Develop tab
+* [SPOI-8133] - When stream is added in dtAssemble, user should be notified if schema is required
+* [SPOI-8131] - Couple of parameters for Kafka Input Operator should have dropdown selection in dtAssemble
 * [SPOI-8130] - Documentation for ingestion beta operators need to be improved
+* [SPOI-8128] - Port names for operators are not intuitive when displayed on dtAssemble canvas
 * [SPOI-8087] - JDBC input operator query should not require explicit ordering of column names
 * [SPOI-8038] - Output file names for HDFS output should not contain timestamp and '.tmp' extension
 * [SPOI-8522] - Unable to set role while creating user in a secure environment.  There is a workaround by create user with no role and then assign the role
@@ -1141,6 +1164,7 @@ This release also includes a lot of bug fixes. Please see appendix for full list
 * [SPOI-8522] -	Unable to set roles while creating user in secure environment
 * [SPOI-8519] -	Ingestion application on dtHub still shows 'requires Apex version' with "-incubating"
 * [SPOI-8511] -	Gateway Websocket API leaks information while unauthorized
+* [SPOI-8509] -	dtAssemble operator documentation shows '@link' markers
 * [SPOI-8507] -	Unable to launch an AppDataTracker application imported from dtHub
 * [SPOI-8491] -	UI mixes the order and ids of tuple recording ports
 * [SPOI-8490] -	gateway issues in SSL enabled cluster
@@ -1155,9 +1179,11 @@ This release also includes a lot of bug fixes. Please see appendix for full list
 * [SPOI-8432] -	JDBC input operator is failing with exception "fetching metadata"
 * [SPOI-8424] -	Dedup does not honor the expiryPeriod when error tuple is introduced in between two valid tuples
 * [SPOI-8422] -	Time properties for operators should have units mentioned for them
+* [SPOI-8416] -	dtAssemble Can't change application name
 * [SPOI-8365] -	HDFS sync app : Unable to sync 500 GB file
 * [SPOI-8358] -	Uptime and latency values are very high exactly after app is launched
 * [SPOI-8317] -	dtIngest 1.1.0 (Compiled against 3.2.0) can not be launched
+* [SPOI-8222] -	Operator/module names under Operator Library, dtAssemble canvas and right side panel should be same
 * [SPOI-8213] -	Application DAG is not displayed when clicked on app link
 * [SPOI-8202] -	Unable to add custom properties while launching apps
 * [SPOI-8197] -	Default values for "Field Infos" and "Bucket Manager" properties should be set appropriately
@@ -1272,6 +1298,11 @@ DataTorrent RTS allows companies to quickly build low latency real time Big Data
 #### dtDasbhoard
 * New widgets for the dashboard: Geo coordinates with circles, Geo regions with gradient fill and single Value 
 
+#### dtAssemble (beta)
+* Top level “Develop” takes users directly to Application Page
+* Navigation changes on how user get to Tuple Schema. User goes to It is now "Edit Application" then "Tuple Schema"
+* Development (breadcrumb link)
+
 #### Documentation 
 * FileSplitter: http://docs.datatorrent.com/operators/file_splitter/
 * Block Reader: http://docs.datatorrent.com/operators/block_reader/
@@ -1322,6 +1353,9 @@ DataTorrent RTS allows companies to quickly build low latency real time Big Data
 * [SPOI-6887] - Changing choropleth map class does not remove previously selected map
 * [SPOI-7246] - Change default widget colors to be websafe
 * [SPOI-7257] - add tags-based dimension query settings in trend widget 
+
+#### dtAssemble (beta)
+* [SPOI-7133] - Tuple Schemas change and Develop on top navigation bar change
 
 #### Megh
 * [SPOI-7665] - Megh enhancements for TelecomDemo
@@ -1610,6 +1644,7 @@ Version 3.1.1
 ### Bug
 
 * [SPOI-5786] - AppDataTracker Custom Metric Store Deadlock
+* [SPOI-6032] - App Builder should not show property from super class
 * [SPOI-6049] - DimensionStoreHDHT Should always set meta data on aggregates in processEvent, even if the aggregate is received in a committed window.
 * [SPOI-6073] - AbstractFileOutputOperator not finalizing the file after the recovery
 * [SPOI-6090] - Ingestion: Error decrypting files for message based sources
@@ -1634,6 +1669,7 @@ Version 3.1.0
 ------------------------------------------------------------------------------------------------------------------------
 
 ### New Feature
+* [SPOI-4670] - Enable message schema management in App Builder
 * [SPOI-5844] - Retrieve older versions of schemas
 
 ### Improvement
@@ -1651,6 +1687,7 @@ Version 3.1.0
 * [SPOI-5857] - Gateway has trouble getting to STRAM until after restart
 * [SPOI-5943] - chicken and egg problem for entering kerberos credentials data to dt-site.xml
 * [SPOI-5946] - Port compatibility when port require schemas
+* [SPOI-6002] - AppBuilder fails to load operator due to NullPointerException
 
 ### Task
 * [SPOI-5307] - Mocha based tests for Gateway API calls
@@ -1700,6 +1737,7 @@ Version 3.0.0
 * [SPOI-4789] - Time calculated from window Id using WindowGenerator.getMillis is incorrect at times 
 * [SPOI-4884] - Intermittent failure for CustomMetricTest
 * [SPOI-4896] - Kafka operator stop consuming from kafka cluster after it is restarted.
+* [SPOI-4941] - For kafka operator in app builder certain properties need to be set twice
 * [SPOI-5006] - If incompatible change made in platform, we need to recompute the typegraph automatically
 * [SPOI-5074] - Code/fix code that leads to classloader leaks in Gateway
 * [SPOI-5087] - Bucket ID Tagger In app data tracker has very high latency
@@ -1726,9 +1764,11 @@ Version 3.0.0
 * [SPOI-5578] - Sometimes Custom Metrics Data Source Is Not Accessible From Widgets
 * [SPOI-5582] - Ingestion: Fails with "Unable to merge file" with FTP as destination
 * [SPOI-5583] - DFS root directory check is failing on MapR cluster
+* [SPOI-5593] - App Builder search tooltip
 * [SPOI-5597] - Bad log level WARNING in UI
 * [SPOI-5604] - Pressing "Enter" in newDashboardModal closes the modal
 * [SPOI-5607] - Sales Enrichment operator needs to be recovered and added to Sales Dimensions demo
+* [SPOI-5612] - AppBuilder can not deserialize instance of java.net.URI with PubSubWebSocketAppData operators
 * [SPOI-5627] - error message from install script from 3.0.0-RC4 
 * [SPOI-5628] - Update dt-site of sandbox for new Sales demo enrichment operator
 * [SPOI-5629] - Data visualization links broken with APPLICATION_DATA_LINK 
@@ -1750,6 +1790,7 @@ Version 3.0.0
 * [SPOI-5673] - Unable to launch ingestion app with JMS as input source 
 * [SPOI-5675] - Kafka keys population error
 * [SPOI-5676] - Fix API doc generation
+* [SPOI-5685] - Complete App Builder category and property name fixes
 * [SPOI-5688] - Correct interactive demo tutorials available in the Learn section
 * [SPOI-5689] - Installer produces error message about removing docs directory
 * [SPOI-5690] - Images missing from lean section tutorials after installing release build
@@ -1789,6 +1830,7 @@ Version 3.0.0
 ### Task
 * [SPOI-4228] - The location of App Data Tracker from installation and from devel mode
 * [SPOI-4658] - App Data Tracker Technical Doc
+* [SPOI-4879] - Hide operators that have no input ports from App builder
 * [SPOI-4983] - Installer for Ingestion app
 * [SPOI-4984] - Obfuscate ingestion jar
 * [SPOI-5029] - Move new x-java dependencies in appDataFramework branch to core
@@ -1807,6 +1849,7 @@ Version 3.0.0
 * [SPOI-5635] - Changing product name to dtIngest
 * [SPOI-5638] - Post ingestion packge to central DT maven repository
 * [SPOI-5639] - App Data Tracker Release Job
+* [SPOI-5645] - support "short" primitive type in app builder
 * [SPOI-5658] - Dummy ticket for Apex-17 - Change CustomMetric annotation to AutoMetric and enhancements
 
 
