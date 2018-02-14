@@ -2,9 +2,7 @@ Monitoring the Sales Dimension application using dtManage
 ===
 
 Recall that after the application is built and validated, it can be
-launched from the _App Packages_ page as described in an earlier chapter;
-applications built with **dtAssemble** can also, optionally, be launched
-from the _Application Canvas_ page as described earlier. This section
+launched from the _App Packages_ page as described in an earlier chapter. This section
 describes how you can monitor the running Sales Dimension application
 using **dtManage**.
 
