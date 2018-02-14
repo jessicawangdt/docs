@@ -19,7 +19,6 @@ pages:
             - Introduction: tutorials/topnwords.md
             - Development Environment: tutorials/topnwords-c1.md
             - Building in Java: tutorials/topnwords-c2.md
-            - Building with dtAssemble: tutorials/topnwords-c3.md
             - Monitoring with dtManage: tutorials/topnwords-c4.md
             - Visualizing with dtDashboard: tutorials/topnwords-c5.md
             - Advanced Features: tutorials/topnwords-c7.md
