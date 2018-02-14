@@ -641,14 +641,6 @@ connecting their ports with streams are all it takes to build most
 applications. Of course, additional steps may be needed to configure
 suitable properties to achieve the desired performance levels but those
 are often easier.
-Building the Sales Dimensions application using dtAssemble
-===
-
-The DataTorrent RTS platform supports building new applications using **dtAssemble**, the Graphical
-Application Builder which we will use for the Sales Dimensions application. **dtAssemble**
-is an easy and intuitive tool for constructing applications,
-while providing a great visualization of the logical operator connectivity and the
-application data flow.
 
 _Note_: You can also find these instructions in the UI console. Click _Learn_ in the menu
 bar, and then click the first link in the left panel: _Transform, Analyze, Alert_.
@@ -733,7 +725,7 @@ on the bottom to edit the operator and stream settings as described in the item:
 2.  Set the _Topic_ property for **Query** and **Result** operators to
     `SalesDimensionsQuery` and `SalesDimensionsResult` respectively.
 
-    _Optional_: In the _Building with Java_ section, the **App Data Pub Sub Query (PubSubWebSocketAppDataQuery)** operator was not added to the DAG. Instead, it was embedded into the **store** operator to avoid query delays which may happen when the operator is blocked upstream. You can achieve the same results in dtAssemble by filling the _Embeddable Query Info Provider_ field of the **Store** operator with the properties set in the **Query** operator, and then removing the **Query** operator.
+    _Optional_: In the _Building with Java_ section, the **App Data Pub Sub Query (PubSubWebSocketAppDataQuery)** operator was not added to the DAG. Instead, it was embedded into the **store** operator to avoid query delays which may happen when the operator is blocked upstream.
 
 3.  Select the **Store** operator, and edit the _File Store_ property.
     Set _Base Path_ value to `SalesDimensionsDemoStore`. This sets the HDHT
@@ -861,10 +853,8 @@ Monitoring the Sales Dimension application using dtManage
 ===
 
 Recall that after the application is built and validated, it can be
-launched from the _App Packages_ page as described in an earlier chapter;
-applications built with **dtAssemble** can also, optionally, be launched
-from the _Application Canvas_ page as described earlier. This section
-describes how you can monitor the running Sales Dimension application
+launched from the _App Packages_ page as described in an earlier chapter. 
+This section describes how you can monitor the running Sales Dimension application
 using **dtManage**.
 
 The Monitor menu option
