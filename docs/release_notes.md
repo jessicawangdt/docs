@@ -353,7 +353,6 @@ This section lists features and capabilities that have been either removed or pl
 * [SPOI-12167] - AppMaster fails with OutOfMemoryError for apps with metric data
 * [SPOI-12170] - RTS installation fails with NoClassDefFoundError for jackson libraries
 * [SPOI-12178] - ConcurrentModificationException in GroupingManager
-* [SPOI-12181] - Launching from app builder provides invalid notification
 * [SPOI-12186] - Properties for some of the operators are not displayed
 * [SPOI-12192] - Unavailable data sources are shown while adding widgets
 * [SPOI-12193] - Metrics platform does not honour "dt.write.metrics" property
@@ -1611,7 +1610,6 @@ Version 3.1.1
 ### Bug
 
 * [SPOI-5786] - AppDataTracker Custom Metric Store Deadlock
-* [SPOI-6032] - App Builder should not show property from super class
 * [SPOI-6049] - DimensionStoreHDHT Should always set meta data on aggregates in processEvent, even if the aggregate is received in a committed window.
 * [SPOI-6073] - AbstractFileOutputOperator not finalizing the file after the recovery
 * [SPOI-6090] - Ingestion: Error decrypting files for message based sources
@@ -1636,7 +1634,6 @@ Version 3.1.0
 ------------------------------------------------------------------------------------------------------------------------
 
 ### New Feature
-* [SPOI-4670] - Enable message schema management in App Builder
 * [SPOI-5844] - Retrieve older versions of schemas
 
 ### Improvement
@@ -1704,7 +1701,6 @@ Version 3.0.0
 * [SPOI-4789] - Time calculated from window Id using WindowGenerator.getMillis is incorrect at times 
 * [SPOI-4884] - Intermittent failure for CustomMetricTest
 * [SPOI-4896] - Kafka operator stop consuming from kafka cluster after it is restarted.
-* [SPOI-4941] - For kafka operator in app builder certain properties need to be set twice
 * [SPOI-5006] - If incompatible change made in platform, we need to recompute the typegraph automatically
 * [SPOI-5074] - Code/fix code that leads to classloader leaks in Gateway
 * [SPOI-5087] - Bucket ID Tagger In app data tracker has very high latency
@@ -1731,7 +1727,6 @@ Version 3.0.0
 * [SPOI-5578] - Sometimes Custom Metrics Data Source Is Not Accessible From Widgets
 * [SPOI-5582] - Ingestion: Fails with "Unable to merge file" with FTP as destination
 * [SPOI-5583] - DFS root directory check is failing on MapR cluster
-* [SPOI-5593] - App Builder search tooltip
 * [SPOI-5597] - Bad log level WARNING in UI
 * [SPOI-5604] - Pressing "Enter" in newDashboardModal closes the modal
 * [SPOI-5607] - Sales Enrichment operator needs to be recovered and added to Sales Dimensions demo
@@ -1757,7 +1752,6 @@ Version 3.0.0
 * [SPOI-5673] - Unable to launch ingestion app with JMS as input source 
 * [SPOI-5675] - Kafka keys population error
 * [SPOI-5676] - Fix API doc generation
-* [SPOI-5685] - Complete App Builder category and property name fixes
 * [SPOI-5688] - Correct interactive demo tutorials available in the Learn section
 * [SPOI-5689] - Installer produces error message about removing docs directory
 * [SPOI-5690] - Images missing from lean section tutorials after installing release build
@@ -1797,7 +1791,6 @@ Version 3.0.0
 ### Task
 * [SPOI-4228] - The location of App Data Tracker from installation and from devel mode
 * [SPOI-4658] - App Data Tracker Technical Doc
-* [SPOI-4879] - Hide operators that have no input ports from App builder
 * [SPOI-4983] - Installer for Ingestion app
 * [SPOI-4984] - Obfuscate ingestion jar
 * [SPOI-5029] - Move new x-java dependencies in appDataFramework branch to core
@@ -1816,7 +1809,6 @@ Version 3.0.0
 * [SPOI-5635] - Changing product name to dtIngest
 * [SPOI-5638] - Post ingestion packge to central DT maven repository
 * [SPOI-5639] - App Data Tracker Release Job
-* [SPOI-5645] - support "short" primitive type in app builder
 * [SPOI-5658] - Dummy ticket for Apex-17 - Change CustomMetric annotation to AutoMetric and enhancements
 
 
