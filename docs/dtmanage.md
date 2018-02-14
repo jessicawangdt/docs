@@ -215,7 +215,6 @@ To access the application package listing, click on the "Apps" link from the Dev
 
 - Download the app package
 - Delete the app package
-- Create a new application in an application package via dtAssemble (requires enterprise license)
 - Launch applications in the app package
 
 > **Note:** If authentication is enabled, you may not be able to see others’ app packages, depending on your permissions.
@@ -233,14 +232,6 @@ Aside from various pieces of meta information (owner, DataTorrent version, requi
 All DataTorrent applications are made up of operators that connect together via streams to form a Directed Acyclic Graph (DAG). To see a visualization of this DAG, click on the application name in the list of applications. In addition to the DAG, Package Properties and any Required Properties will be listed on this page.
 
 ![DAG View](images/dtmanage/console-dag-view.png)
-
-
-### Creating apps with dtAssemble
-
-If you have an Enterprise license, you will have access to the dtAssemble tool. Using this tool is outside the scope of this guide, but check out the [dtAssemble guide](http://docs.datatorrent.com/dtassemble/).
-
-
-
 
 ## Configure
 
