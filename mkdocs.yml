@@ -78,7 +78,6 @@ pages:
     - RTS: rts.md
     - Application Configurations: application_configurations.md
     - dtManage: dtmanage.md
-    - dtAssemble: dtassemble.md
     - dtDashboard: dtdashboard.md
     - dtGateway: dtgateway.md
     - Alerts: dtgateway_systemalerts.md
