@@ -23,18 +23,20 @@ pages:
             - Visualizing with dtDashboard: tutorials/topnwords-c5.md
             - Advanced Features: tutorials/topnwords-c7.md
             - Appendix: tutorials/topnwords-c6.md
-        - Sales Dimensions:
-            - Building in Java: tutorials/salesdimensions.md
-            - Visualizing with dtDashboard: tutorials/salesdimensions-c3.md
-            - Monitoring with dtManage: tutorials/salesdimensions-c4.md
+        - Sales Dimensions: tutorials/salesdemo.md
     - Apex Development Setup: apex_development_setup.md
     - Generate New Project in IDE: configure_IDE.md
     - Applications: application_development.md
     - Application Packages: application_packages.md
     - Configuration Packages: configuration_packages.md
-    - Operators: operator_development.md
-    - Library Operators:
-        - List of Operators: library_operators.md
+    - Operator Development: operator_development.md
+    - Operators: 
+        - Operators List: library_operators.md
+        - Drools Operator: operators/drools_operator.md
+        - Python Operator: operators/python_operator.md
+        - PMML Operator: operators/PMML_operator.md
+        - TCP Input Operator: operators/tcpinputoperator.md
+        - Azure Blob Storage Operator: operators/azure_blob.md
         - Block Reader: operators/block_reader.md
         - Deduper: operators/deduper.md
         - Dimension Computation: operators/dimensions_computation.md

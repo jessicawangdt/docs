@@ -20,23 +20,17 @@ To monitor the top N words application
 DAGs and widgets
 ---
 When monitoring an application, the logical view is selected by default, with
-the following six panels, also called widgets: _Stram Events_, _Application
-Overview_, _Logical DAG_, _Logical Operators_, _Streams_, and _Metrics Chart_.
+the following panels, also called widgets:  _Application
+Overview_, _Stram Events_, _Logical DAG_, _Logical Operators_, _Streams_, _Associated Services_, and _Metrics Chart_.
 These panels can be resized, moved around, configured (using the gear wheel
 icon in the top-right corner), or removed (using the delete button in the
 top-right corner).
 
 Logical view and associated widgets (panels)
+---
 
 This section describes the widgets that you see when you select the logical
 tab.
-
-**Stram Events**
-
-As shown in the screenshot above, this panel shows the lifecycle events of all
-the operators. If one of the operators fails, a white button labelled _details_
-appears next to the event; click on it for additional details about the
-failure.
 
 **Application Overview**
 
@@ -45,6 +39,13 @@ allocated memory, and the number of tuples processed. You can use the kill
 button to terminate the application. The _visualize_ button allows you to
 create one or more custom dashboards to visualize the application output.
 ![Application Overview](images/topnwords/image24.png "Application Overview")
+
+**Stram Events**
+
+As shown in the screenshot above, this panel shows the lifecycle events of all
+the operators. If one of the operators fails, a white button labelled _details_
+appears next to the event; click on it for additional details about the
+failure.
 
 **Logical DAG**
 
@@ -77,6 +78,10 @@ and sinks.
 
 ![Streams](images/topnwords/image49.png "Streams")
 
+**Associated Services**
+
+This panel displays the services associated with the applications and their running statuses. 
+
 **Metrics Chart**
 
 This panel displays the number tuples processed and the number of bytes
@@ -87,6 +92,7 @@ coincide with the horizontal axis:
 ![Metrics](images/topnwords/image20.png "Metrics")
 
 Physical view and associated widgets
+---
 
 The physical tab displays the _Application Overview_ and _Metrics Chart_
 discussed above along with additional panels: _Physical Operators_ and
@@ -117,12 +123,12 @@ This is an unhealthy state and, if it does not stabilize, your only option is
 to kill the application and reduce the memory needs or acquire more cluster
 resources.
 
-The physical-dag-view
+### The physical-dag-view
 
 The _physical-dag-view_ tab displays the Physical DAG widget, which
 shows all the partitioned copies of operators and their interconnections.
 
-The metric-view
+### The metric-view
 
 The metric-view tab displays only the _Metrics Chart_ widget.
 

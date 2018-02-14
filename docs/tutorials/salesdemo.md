@@ -641,3 +641,362 @@ connecting their ports with streams are all it takes to build most
 applications. Of course, additional steps may be needed to configure
 suitable properties to achieve the desired performance levels but those
 are often easier.
+Building the Sales Dimensions application using dtAssemble
+===
+
+The DataTorrent RTS platform supports building new applications using **dtAssemble**, the Graphical
+Application Builder which we will use for the Sales Dimensions application. **dtAssemble**
+is an easy and intuitive tool for constructing applications,
+while providing a great visualization of the logical operator connectivity and the
+application data flow.
+
+_Note_: You can also find these instructions in the UI console. Click _Learn_ in the menu
+bar, and then click the first link in the left panel: _Transform, Analyze, Alert_.
+
+Step 1: Open the Application Builder interface
+---
+
+1.  On the DataTorrent RTS console, navigate to _App Packages_.
+2.  Make sure that the DataTorrent Dimensions Demos package is imported (if
+    not, use the Import Demos button to import it).
+3.  Click the green _Create new application_ button, and name the application
+    Sales Dimensions. The Application Canvas window should open.
+    ![Canvas](images/sales_dimensions/image23.png "Canvas")
+
+
+Step 2: Add and connect operators
+---
+
+1.  Under _Operator Library_ in the left panel, select the following
+    operators and drag them to the Application Canvas. Rename them to
+    the names given in parentheses.
+    1. **JSON Sales Event Generator (Input)** – This operator generates
+       synthetic sales events and emits them as JSON string bytes.
+    2. **JSON to Map Parser (Parse)** – This operator transforms JSON
+       data to Java maps for convenience in manipulating the sales data
+       in Java code.
+    3. **Enrichment (Enrich)** – This operator performs category lookup based on
+       incoming product IDs, and adds the category ID to the output maps.
+    4. **Dimension Computation Map (Compute)** – This operator performs dimensions
+       computations, also known as cubing, on the incoming data. It
+       pre-computes the sales numbers by region, product category, customer,
+       and sales channel, and all combinations of the above. Having these
+       numbers available in advance, allows for viewing and taking action on
+       any of these combinations in real time.
+    5. **Simple App Data Dimensions Store (Store)** &ndash; This operator
+       stores the computed dimensional information on HDFS in an optimized manner.
+    6. **App Data Pub Sub Query (Query)** &ndash; The dashboard connector for
+       visualization queries.
+    7. **App Data Pub Sub Result (Result)** &ndash; The dashboard connector for
+       visualization data results.
+
+2.  To connect the operators, click the output port of each upstream operator,
+    and drag the connector to the input stream of the downstream operator as shown
+    in the diagram below:
+    ![streams](images/sales_dimensions/image01.png "streams")
+
+Step 3: Customize application and operator settings
+---
+
+Customize the operators and streams as described in each item below; to do that,
+click the individual operator or stream and use the _Operator Inspector_ panel
+on the bottom to edit the operator and stream settings as described in the item:
+
+1.  Copy this Sales schema below into the _Event Schema JSON_ field of **Input**
+    operator, and the _Configuration Schema JSON_ of the **Compute** and **Store**
+    operators.
+
+        {
+          "keys": [
+            {"name":"channel","type":"string","enumValues":["Mobile","Online","Store"]},
+            {"name":"region","type":"string",
+             "enumValues":["Atlanta","Boston","Chicago","Cleveland","Dallas","Minneapolis",
+                           "New York","Philadelphia","San Francisco","St. Louis"]},
+            {"name":"product","type":"string",
+             "enumValues":["Laptops","Printers","Routers","Smart Phones","Tablets"]}],
+          "timeBuckets":["1m", "1h", "1d"],
+          "values": [
+            {"name":"sales","type":"double","aggregators":["SUM"]},
+            {"name":"discount","type":"double","aggregators":["SUM"]},
+            {"name":"tax","type":"double","aggregators":["SUM"]}],
+          "dimensions": [
+            {"combination":[]},
+            {"combination":["channel"]},
+            {"combination":["region"]},
+            {"combination":["product"]},
+            {"combination":["channel","region"]},
+            {"combination":["channel","product"]},
+            {"combination":["region","product"]},
+            {"combination":["channel","region","product"]}]
+        }
+
+2.  Set the _Topic_ property for **Query** and **Result** operators to
+    `SalesDimensionsQuery` and `SalesDimensionsResult` respectively.
+
+    _Optional_: In the _Building with Java_ section, the **App Data Pub Sub Query (PubSubWebSocketAppDataQuery)** operator was not added to the DAG. Instead, it was embedded into the **store** operator to avoid query delays which may happen when the operator is blocked upstream. You can achieve the same results in dtAssemble by filling the _Embeddable Query Info Provider_ field of the **Store** operator with the properties set in the **Query** operator, and then removing the **Query** operator.
+
+3.  Select the **Store** operator, and edit the _File Store_ property.
+    Set _Base Path_ value to `SalesDimensionsDemoStore`. This sets the HDHT
+    storage path to write dimensions computation results to
+    `/user/<username>/SalesDimensionsDemoStore` on HDFS.
+    ![filestore](images/sales_dimensions/image05.png "filestore")
+4.  Click the stream, and set the Stream Locality to CONTAINER_LOCAL
+    for all the streams between Input and Compute operators.
+
+_Note_: Changing stream locality controls which container operators
+get deployed to, and can lead to significant performance improvements
+for an application. Once set, the connection will be represented by a
+dashed line to indicate the new locality setting.
+
+Step 4: Launch the application
+---
+Once the application is constructed, and validation checks are
+satisfied, a launch button will become available at the top left of the
+_Application Canvas_ window. Clicking this button to open the application
+launch dialog box. You can use this dialog box to perform additional
+configuration of the application such as changing its name or modifying
+properties.
+
+To launch the Sales Dimension application
+
+1.  Click the launch button at the top left of the application canvas screen.
+2.  Type a name for the application in the _Name this application_ box.
+3.  (Optional) To configure the application using a configuration file, select
+    _Use a configuration file_ checkbox.
+4.  (Optional) To specify individual properties, select
+    _Specify Launch Properties_ checkbox.
+5.  Click Launch.
+
+![Launch](images/sales_dimensions/image21.png "Launch")
+
+Once the application is successfully launched, you can check its
+health and view some runtime statistics using the steps below.
+Additional details are in the chapter entitled _Monitoring the Sales
+Dimensions Application with dtManage_.
+
+1.  Go to the Sales Dimensions application operations page under the _Monitor_ tab.
+2.  Confirm that the application is launched successfully by validating that
+    the state of the application under the _Application Overview_ section
+    is _RUNNING_.
+3.  Make sure that all the operators are successfully started under the
+    _StramEvents_ widget.
+4.  Navigate to the _physical_ tab, observe the Input, Parse, Enrich, or
+    Compute operators, and ensure that they are deployed to a single container,
+    because of the stream locality setting of CONTAINER_LOCAL.
+    ![containers](images/sales_dimensions/image35.png "containers")
+
+_Note_: This is one of the many performance improvement techniques
+available with the DataTorrent platform; in this case eliminating data
+serialization and networking stack overhead between groups of adjacent
+operators.
+Visualizing data from the Sales Dimension application using dtDashboard
+===
+DataTorrent includes powerful data visualization tools, which
+allow you to visualize streaming data from multiple sources in real
+time. For additional details see the tutorial entitled _dtDashboard
+- Application Data Visualization_ at <https://docs.datatorrent.com>.
+
+After the application is started, a visualize button, available in
+the Application Overview section, can be used to quickly generate a new
+dashboard for the Sales Dimensions application.
+
+Generate dashboards
+---
+![dashboard](images/sales_dimensions/image22.png "dashboard")
+
+If you created dashboards already, the dashboards appear in the
+dropdown list. You can select one, or generate a new dashboard by
+selecting the generate new dashboard option from the dropdown list.
+
+After the dashboard is created, you can add additional widgets for
+displaying dimensions and combinations of the sales data. Here is an
+example:
+
+![widgets](images/sales_dimensions/image25.png "widgets")
+
+Adding widgets
+---
+To derive more value out of application dashboards, you can add
+widgets to the dashboards. Widgets are charts in addition to the default
+charts that you can see on the dashboard. DataTorrent RTS supports five
+widgets: `bar chart`, `pie chart`, `horizontal bar chart`, `table`, and
+`note`.
+
+To add a widget
+
+1.  Click the add widget button below the name of the dashboard, for example,
+    Sales Dimension.
+    ![AddWidgetButton](images/sales_dimensions/image24.png "AddWidgetButton")
+2.  In the Data Source list, click a data source for your widget.
+3.  Select a widget type under _Available Widgets_.
+    ![AddWidget.png](images/sales_dimensions/image34.png "AddWidget")
+4.  Click _add widget_ button.
+
+The widget is added to your dashboard.
+
+Edit a widget
+---
+
+After you add a widget to your dashboard, you can update it at any
+time. Each widget has a title that appears in gray. If you hover over
+the title, the pointer changes to a hand.
+
+To edit a widget
+
+1.  Change the size and position of the widget:
+    a. To change the size of the widget, click the
+       border of the widget, and resize it.
+    b. To move the widget around, click the widget, and
+       drag it to the desired location.
+
+2.  Edit the widget:
+    a.  In the top-right corner of the widget, click _edit_.
+    b.  Type a new title in the _Title_ box.
+    c.  Use the remaining options to configure the widget.
+    d.  Click _OK_.
+    ![WidgetOptions.png](images/sales_dimensions/image26.png)
+
+3.  To remove a widget, in the top-right corner, click the _delete_ button.
+Monitoring the Sales Dimension application using dtManage
+===
+
+Recall that after the application is built and validated, it can be
+launched from the _App Packages_ page as described in an earlier chapter;
+applications built with **dtAssemble** can also, optionally, be launched
+from the _Application Canvas_ page as described earlier. This section
+describes how you can monitor the running Sales Dimension application
+using **dtManage**.
+
+The Monitor menu option
+---
+
+You can monitor the Sales Dimension application by clicking
+Monitor on the menu bar. After you click _Monitor_, you can choose between
+4 tabs. Under each tab, you can see multiple widgets, which you can
+resize, move around, configure, or remove.
+
+**logical**
+
+This image of the logical tab shows 4 widgets; additional widgets can be
+added by clicking the **+** button at the top-left corner and choosing
+from the resulting dropdown list.
+
+![Logical.png](images/sales_dimensions/image28.png)
+
+- **Application Overview**
+
+    This widget has the shutdown and kill buttons for shutting down or
+    killing an application. This widget also displays the state of the
+    application, the window IDs, the number of physical operators,
+    containers, allocated memory, and statistics on the number of
+    events handled.
+
+- **StramEvents**
+
+    This widget displays all the operators, containers, and nodes that
+    are running. This widget also displays additional information,
+    such as errors encountered and timestamps.
+
+- **Logical DAG**
+
+    This widget displays operators and their
+    connections in the logical dag (as defined in the application)
+    without partitions, that is, if an operator is partitioned to run
+    multiple copies to increase throughput, only one copy is displayed.
+    The Physical DAG (the physical-dag-view) shows the actual
+    physical operators. For each operator, you can choose to include
+    additional statistics.
+
+    To include additional details
+
+    1.  Click an operator for which you want to display additional details.
+    2.  To display a detail on the top of this operator representation,
+        click the Top list, and select a metric.
+    3.  To display a detail at the bottom of this operator representation,
+        click the Bottom list, and select a metric.
+
+- **Logical Operators**
+
+    This widget displays a table of operators
+    for: the name, the Java class, status, and additional statistics for
+    latency and processed events.
+
+- **Streams**
+
+    This operator displays a table with one row per stream showing:
+    the name, locality, source, and sinks.
+
+- **Metrics Chart**
+
+    This widget displays moving averages of tuples processed and latencies.
+
+**physical**
+
+The physical tab displays, in addition to _Application Overview_
+and _Metrics Chart_, 2 more widgets:
+
+![Physical.png](images/sales_dimensions/image29.png)
+
+- **Physical Operators**
+
+    This widget displays a table of physical operators for:
+    name, status, host, container ID, and some additional statistics. The
+    container ID is a numeric value and a clickable link that takes you to a
+    page showing additional details about that specific instance of the
+    operator.
+
+- **Containers**
+
+    This widget displays a table of containers (the Java Virtual
+    Machine processes) and for each process: the ID, the process ID,
+    host, the number of hosted operators, and some additional memory
+    statistics.
+
+**physical-dag-view**
+
+The physical-dag-view tab displays the Physical DAG widget, which
+shows all the partitioned copies of operators and their
+interconnections:
+
+![Physical-dag.png](images/sales_dimensions/image30.png)
+
+**metric-view**
+
+The metric-view tab displays only the _Metrics Chart_ widget.
+
+Monitor Sales Dimension using the Monitor menu
+---
+To monitor the application
+
+1.  Click _Monitor_ on the menu bar to open the logical view of the DAG.
+    ![monitor](images/sales_dimensions/image31.png "monitor")
+2.  Ensure that the _State_ is _Running_, indicating that the application
+    is launched successfully.
+3.  Under _StramEvents_, ensure that the operators from within the
+    application have started.
+4.  Click _physical_ tab to open the physical view.
+5.  Ensure that the Input, Parse, Enrich, and
+    Compute operators are deployed to a single container.
+    ![physical](images/sales_dimensions/image32.png "physical")
+
+    Note: This is because we set the corresponding stream locality to
+    `CONTAINER_LOCAL` earlier. This parameter is an example of performance
+    improvement technique, which eliminates data serialization and
+    networking stack overhead between a group of adjacent operators.
+
+Create additional tabs
+---
+
+You can create custom tabs in addition to logical, physical,
+physical-dag-view, and metric-view. Under each tab, you can add
+widgets, and customize these widgets according to your requirements.
+This enables a deeper insight into how the Sales Dimension application
+works. Each tab, default or otherwise, contains the _Application
+Overview_ widget.
+
+To create additional tabs
+
+1.  Next to the _metric-view_ tab, look for the plus sign (+) button.
+2.  Click this button to create an additional tab.
+3.  Provide a name for your tab.
+4.  Add widgets to your tab.
