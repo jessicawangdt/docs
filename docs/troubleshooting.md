@@ -117,7 +117,6 @@ The system requirements for Sandbox deployment are as follows:
 -  DataTorrent Operator Library
 -  DataTorrent Enterprise Security
 -  DataTorrent dtManage
--  DataTorrent dtAssemble
 -  DataTorrent dtDashboard
 -  Demo Applications
 
