@@ -25,7 +25,6 @@ Apache Apex
 DataTorrent RTS
 ---------------
 
-- **dtAssemble** - graphical application assembly tool used to develop applications.
 - **dtDashboard** - graphical visualization tool to view and query system and application data.
 - **dtGateway** - HTTP server used by dtManage to interact with STRAM, YARN Resource Manager, and HDFS
 - **dtManage** - the web based interface to install, configure, manage & monitor Apache Apex applications running in a Hadoop Cluster
