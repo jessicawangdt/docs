@@ -861,7 +861,6 @@ Change log: https://github.com/apache/apex-malhar/blob/v3.6.0/CHANGELOG.md
 * [SPOI-10063]	Create new apex core build based on master
 * [SPOI-9859]	Log retrieval tool
 * [SPOI-9043]	Requirements discussion on Batch Support - Definition of Batch, Scheduling of Batch DAG, State of Batch, Replay of Batch and Monitoring of Batch  
-* [SPOI-8990]	DAG Editor - unable to drag a connection stream from a port if having restriction DISABLE_APP_EDIT_STRUCTURE
 * [SPOI-9972]	Document DT Gateway System Alerts
 * [SPOI-9970]	Modify access to allow Admin (and ONLY admin) to set alerts
 * [SPOI-9653]	Plan and implement (1 item in v1)for Gateway Alerts
