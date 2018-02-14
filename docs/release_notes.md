@@ -1651,7 +1651,6 @@ Version 3.1.0
 * [SPOI-5857] - Gateway has trouble getting to STRAM until after restart
 * [SPOI-5943] - chicken and egg problem for entering kerberos credentials data to dt-site.xml
 * [SPOI-5946] - Port compatibility when port require schemas
-* [SPOI-6002] - AppBuilder fails to load operator due to NullPointerException
 
 ### Task
 * [SPOI-5307] - Mocha based tests for Gateway API calls
@@ -1730,7 +1729,6 @@ Version 3.0.0
 * [SPOI-5597] - Bad log level WARNING in UI
 * [SPOI-5604] - Pressing "Enter" in newDashboardModal closes the modal
 * [SPOI-5607] - Sales Enrichment operator needs to be recovered and added to Sales Dimensions demo
-* [SPOI-5612] - AppBuilder can not deserialize instance of java.net.URI with PubSubWebSocketAppData operators
 * [SPOI-5627] - error message from install script from 3.0.0-RC4 
 * [SPOI-5628] - Update dt-site of sandbox for new Sales demo enrichment operator
 * [SPOI-5629] - Data visualization links broken with APPLICATION_DATA_LINK 
