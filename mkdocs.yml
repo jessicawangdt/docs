@@ -25,7 +25,6 @@ pages:
             - Appendix: tutorials/topnwords-c6.md
         - Sales Dimensions:
             - Building in Java: tutorials/salesdimensions.md
-            - Building with dtAssemble: tutorials/salesdimensions-c2.md
             - Visualizing with dtDashboard: tutorials/salesdimensions-c3.md
             - Monitoring with dtManage: tutorials/salesdimensions-c4.md
     - Apex Development Setup: apex_development_setup.md
