@@ -29,7 +29,6 @@ A simple word counting exercise was chosen because the goal of this tutorial is 
     application packages and the constituent applications
 -   **dtManage** &ndash; for monitoring the applications
 -   **dtDashboard** &ndash; for visualizing the output
--   **dtAssemble** &ndash; for  visual application assembly
 
 In the context of such an application, a number of questions arise:
 
