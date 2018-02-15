@@ -37,6 +37,7 @@ pages:
         - PMML Operator: operators/PMML_operator.md
         - TCP Input Operator: operators/tcpinputoperator.md
         - Azure Blob Storage Operator: operators/azure_blob.md
+        - Elasticsearch Output Operator: operators/elasticsearch.md
         - Block Reader: operators/block_reader.md
         - Deduper: operators/deduper.md
         - Dimension Computation: operators/dimensions_computation.md

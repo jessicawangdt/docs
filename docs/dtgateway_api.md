@@ -11,6 +11,66 @@ DataTorrent dtGateway API v2 Specification
 *  *500*: Something is wrong on the server side
 
 ## REST URI Specification
+
+### Phone Home Reporting API
+
+#### GET /ws/v2/phoneHome/report?period={total/previous/current}  
+
+Function: View the data that is sent back to DataTorrent customer support. 
+
+Return:
+```
+{
+    "licenseId": "{licenseId}",
+    "numNodesInCluster": "{numberOfNodesInCluster}",
+    "license":
+    {
+        "currentTime": "{currentTimeMills}",
+        "startDate": "{startTimeMills}",
+        "expireTime": "{expireTimeMills}",
+        "memoryMBAllowed": "{memoryMBAllowed}",
+        "memoryMBUsed": "{memoryMBUsed}",
+        "issuedTo": "{issuedTo}",
+        "issuedBy": "{issuedBy}",
+        "issuerWebsite": "{issuerWebsite}",
+        "supportedBy": "{supportedBy}",
+        "supportURL": "{supportURL}",
+        "category": "{DT Premium/DT PLUS}",
+        "exceedGracePeriod": "{exceedGracePeriod}",
+        "valid": {true/false},
+        "id": "{licenseId}",
+        "licenseType": "{licenseType}"
+    },
+    "rts.version": "{rtsVersion}",
+    "apex.version": "{apexVersion}",
+    "java.vendor": "{javaVendor}",
+    "java.version": "{javaVersion}",
+    "os.arch": "{operatingSystemArchitecture}",
+    "os.name": "{operatingSystemName}",
+    "os.version": "{operatingSystemVersion}",
+    "hadoop.version": "{hadoopVersion}",
+    "metrics":
+    {
+        "tuplesProcessedPSMA": "{tuplesProcessedPSMA}",
+        "tuplesEmittedPSMA": "{tuplesEmittedPSMA}",
+        "cpuPercentage": "{cpuPercentage}",
+        "gatewayUpTimeMills": "{gatewayUpTimeMills}",
+        "currentMemoryAllocatedMB": "{currentMemoryAllocatedMB}",
+        "period": "{total/previous/current}",
+        "startTime": "{startTimeOfThePeriod}",
+        "appsRunningMax": "{appsRunningMaxInThePeriod}",
+        "ageOfAppsAvg": "{ageOfAppsAvgInThePeriod}",
+        "appsRunningAvg": "{appsRunningAvgInThePeriod}",
+        "memMBMax": "{memMBMaxInThePeriod}",
+        "memMBMin": "{memMBMinInThePeriod}",
+        "numAppsFinished": "{numAppsFinishedInThePeriod}",
+        "numOfContainersAvg": "{numOfContainersAvgInThePeriod}",
+        "endTime": "{endTimeOfThePeriod}",
+        "appsRunningMin": "{appsRunningMinInThePeriod}",
+        "numOfOperatorsAvg": "{numOfOperatorsAvgInThePeriod}"
+    }
+}
+```
 ### GET /ws/v2/about
 
 Function:
