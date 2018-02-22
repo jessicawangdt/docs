@@ -58,12 +58,30 @@ window.addEventListener("DOMContentLoaded", function() {
     }), currentVersion.version);
     select.id = "version-selector";
     select.addEventListener("change", function(event) {
+      var self = this;
       var match = window.location.href.match(/\/v\/[0-9]*\.[0-9]*\.[0-9]*\//);
-      if (match) {
-        // path has version number in it
-        window.location.href = window.location.href.replace(/\/v\/[0-9]*\.[0-9]*\.[0-9]*\//,  '/v/' + this.value + '/');
-      } else {
-        // path does not have version in it
+      if (match) { // path has version number in it
+        var href2 = window.location.href.replace(/\/v\/[0-9]*\.[0-9]*\.[0-9]*\//,  '/v/' + this.value + '/');
+
+        var xhttp= new XMLHttpRequest();  
+        xhttp.open("GET", href2, true);
+        xhttp.send();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 404) {
+            var b = confirm("This page does not exist in " + self.value + " version. Do you still want to change to " + self.value + " version?");
+            if (b == true) {
+              window.location.href = window.location.origin +  '/v/' + self.value + '/'; //home page
+            } else {
+              event.preventDefault(); 
+            }
+          }
+          else if (this.readyState == 4 && this.status == 200) {
+            window.location.href = href2;
+          }
+        };  
+  
+      } else { // path does not have version in it
+        
         window.location.href = window.location.href.replace(window.location.origin, window.location.origin + '/v/' + this.value);
       }
       // window.location.href = REL_BASE_URL + "/../" + this.value;
