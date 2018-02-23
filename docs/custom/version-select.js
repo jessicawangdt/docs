@@ -57,6 +57,7 @@ function initializeVersionSelection() {
       return {text: i.title + (i.latest ? ' (latest)' : ''), value: i.version};
     }), currentVersion.version);
     select.id = "version-selector";
+    select.__beforeChange = currentVersion.version;
 
     var checkIfPageExistsInSelectedVersion = function(href2, versionSelect, event) {
       var xhttp= new XMLHttpRequest();  
@@ -67,12 +68,14 @@ function initializeVersionSelection() {
           var b = confirm("This page does not exist in " + versionSelect.value + " version. Do you still want to change to " + versionSelect.value + " version?");
           if (b == true) {
             window.location.href = window.location.origin +  '/v/' + versionSelect.value + '/'; //home page
+            versionSelect.__beforeChange = versionSelect.value;
           } else {
-            event.preventDefault(); 
+            versionSelect.value = versionSelect.__beforeChange;
           }
         }
         else if (this.readyState == 4 && this.status == 200) {
           window.location.href = href2;
+          versionSelect.__beforeChange = versionSelect.value;
         }
       };  
     }
