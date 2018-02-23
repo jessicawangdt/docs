@@ -41,7 +41,7 @@ function initializeVersionSelection() {
 
   var xhr = new XMLHttpRequest();
   // xhr.open("GET", REL_BASE_URL + "/../versions.json");
-  xhr.open("GET", "/versions.json");
+  xhr.open("GET", "/versions.json?t=" + Date.now());
   xhr.onload = function() {
     var versions = JSON.parse(this.responseText);
 
